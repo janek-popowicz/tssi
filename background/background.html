@@ -49,13 +49,36 @@
                 <td style="background-image: url('img/tlo-liscie.png'); background-repeat: repeat-y; height:400px"></td>
             </tr>
             <tr>
-                <td>pt</td>
-                <td>punkty (1pt = 1/72 cala)</td>
+                <td>background-attachment</td>
+                <td>Określa, czy tło przewija się razem ze stroną, czy jest przyklejone do widoku (viewport). Możliwe wartości: <code>scroll</code> (domyślna), <code>fixed</code>, <code>local</code>.<hr><code>background-attachment: fixed;</code></td>
+                <td style="background-image: url('img/liscie.jpg'); background-repeat: no-repeat; background-attachment: fixed; height:200px"></td>
             </tr>
             <tr>
-                <td>pc</td>
-                <td>piki / pica (1pc = 12pt)</td>
+                <td>background-position</td>
+                <td>Ustawia pozycję obrazu tła. Można podać słowa kluczowe (np. <code>center</code>, <code>top left</code>) lub wartości liczbowe/procenty (np. <code>50% 20px</code>).
+                <hr>
+                <code>background-position: center top;</code></td>
+                <td style="background-image: url('img/liscie.jpg'); background-repeat: no-repeat; background-position: center top; height:1400px"></td>
             </tr>
     </table>
+    <hr>
+    <h2>Wypróbuj sam</h2>
+    <p>Wpisz dowolne deklaracje CSS (np. <code>background-color: yellow; color: red;</code>) — będą stosowane do paragrafu poniżej.</p>
+    <textarea id="styleInput" placeholder="Tu wpisuj CSSa, np: background-color:red;" style="width: 100%;margin: 10px auto; text-align:center; height: 100px;"></textarea>
+
+    <p id="test">Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</p>
+    <script>
+    (function(){
+        var input = document.getElementById('styleInput');
+        var test = document.getElementById('test');
+        var btn = document.getElementById('apply');
+
+        function applyStyle(){
+            test.style.cssText = input.value;
+        }
+        input.addEventListener('input', applyStyle);
+    })();
+    </script>
+    
 </body>
 </html>
