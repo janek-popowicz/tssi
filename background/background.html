@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Jan Popowicz">
+    <meta name="copyright" content="Jan Popowicz">
+    <meta name="robots" content="index, follow">
+    <meta name="generator" content="VS Code">
+    <meta name="description" content="Index zadań na tssi">
+    <meta name="keywords" content="none">
+    <title>Tła w CSS | Jan Popowicz</title>
+    <link rel="stylesheet" href="../stylesheet.css">
+</head>
+<body>
+    <h1>Tła w CSS</h1>
+    <p style="background-color: inherit"><a href="../index.html">Powrót do strony głównej</a></p>
+
+    
+    
+    <p>Tło ma wiele właściwości.</p>
+    <hr>
+    <h2>Poznane do tej pory właściwości tła:</h2>
+    <table>
+            <tr>
+                <th>Właściwość</th>
+                <th>Opis</th>
+                <th>Przykład</th>
+            </tr>
+            <tr>
+                <td>background</td>
+                <td>Dajemy wszystkie właściwości naraz. <hr> <code>background: lightblue url('img/liscie.jpg') no-repeat fixed center;</code></td>
+                <td style="background: lightblue url('img/liscie.jpg') no-repeat fixed center;"></td>
+            </tr>
+            <tr>
+                <td>background-color</td>
+                <td>Kolor tła, default to transparent. <hr> <code>background-color: pink</code></td>
+                <td style="background-color: pink;"> </td>
+            </tr>
+            <tr>
+                <td>background-image</td>
+                <td>Obraz tła. Może być obraz: <code>url('path')</code> albo gradient: <code>radial-gradient(color1, color2, color3)</code>. Podajemy ścieżkę w <code>'path'</code>, absolutnie nie w <code>"path"</code>. Więcej informacji na <a href="https://www.w3schools.com/cssref/pr_background-image.php">W3</a>.<hr><code>background-image:linear-gradient(red, white);</code></td>
+                <td style="background-image: linear-gradient(red, white);"></td>
+            </tr>
+            <tr>
+                <td>background-repeat</td>
+                <td id="px">Decyduje czy obrazek będzie powtarzany. <code>no-repeat</code>, <code>repeat-x</code>.<hr>
+                <code>background-repeat: repeat-y</code>. Więcej informacji na <a href="https://www.w3schools.com/cssref/pr_background-repeat.php">W3</a>.</td>
+                <td style="background-image: url('img/tlo-liscie.png'); background-repeat: repeat-y; height:400px"></td>
+            </tr>
+            <tr>
+                <td>pt</td>
+                <td>punkty (1pt = 1/72 cala)</td>
+            </tr>
+            <tr>
+                <td>pc</td>
+                <td>piki / pica (1pc = 12pt)</td>
+            </tr>
+    </table>
+</body>
+</html>
