@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing:border-box;
+        }
+        body{
+            margin: 0 auto;
+            width: 80%;
+            padding:0;
+        }
+        a {
+            text-decoration: none;
+            background-color: lightgreen;
+            display: block;
+            color:black;
+            border: 1px solid darkgreen;
+            border-radius: 10px 4px;
+        }
+        a:link{
+            background-color: lightgreen;
+            color:black;
+        }
+        a:visited{
+            background-color: lightblue;
+            color:black;
+        }
+        a:hover{
+            background-color: orange;
+            color:white;
+        }
+        a:active{
+            background-color: red;
+            color:white;
+        }
+        ul{
+            list-style-type:none;
+            margin: 10px auto;
+            text-align:center;
+        }
+        .top {
+            border: 1px solid black;
+        }
+        .left li{
+            width: 90%;
+            margin: 10px auto;
+        }
+        .top li{
+            width: 30%;
+            margin: 10px auto;
+        }
+        .lewy{
+            width: 20%;
+            float:left;
+            background-color: rgba(141, 132, 132, 0.291);
+            height: 300px;
+            overflow: hidden;
+            border-right: 1px solid black;
+        }
+        .center{
+            width: 60%;
+            margin: 0 auto;
+            background-color: rgb(182, 219, 232);
+            height: 300px;
+            overflow: hidden;
+            padding:0 20%;
+        }
+        .prawy{
+            width: 20%;
+            float:right;
+            background-color: rgb(228, 205, 205);
+            height: 300px;
+            overflow: hidden;
+            padding:0 1%;
+            border-left: 1px solid black;
+        }
+        .top li{
+            display: inline-block;
+        }
+        footer{
+            clear: both;
+            padding: 10px 0;
+            background-color: lightgray;
+            border-top: 1px solid black;
+        }
+        
+    </style>
+</head>
+<body>
+    <nav class="top">
+        <ul>
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+            <li><a href="#">Link 3</a></li>
+        </ul>
+    </nav>
+    <nav class="lewy">
+        <ul>
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+            <li><a href="#">Link 3</a></li>
+        </ul>
+    </nav>
+    <div class="prawy">
+        <ul style="list-style-type:circle;">
+            <li>Element 1</li>
+            <li>Element 2</li>
+            <li>Element 3</li>
+        </ul>
+    </div>
+    <div class="center">
+        <ul style="list-style-type:square">
+            <li>Element 1</li>
+            <li>Element 2</li>
+            <li>Element 3</li>
+        </ul>
+    </div>
+    <footer style="text-align:center;">©Jan Popowicz</footer>
+</body>
+</html>
