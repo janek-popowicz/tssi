@@ -55,8 +55,8 @@
     }
 
     .roller {
-        width: 80px;
-        height: 80px;
+        width: 10vh;
+        height: 15vh;
         overflow: hidden;
         border-radius: 15px;
         background: #0f172a;
@@ -70,14 +70,24 @@
         width: 100%;
     }
     .number {
-        height: 80px;
+        height: 15vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 32px;
+        font-size: 5vh;
         font-weight: bold;
     }
-
+    .roller::after {
+    content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: rgba(255,255,255,0.3);
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
     .operator {
         font-size: 28px;
         font-weight: bold;
@@ -144,8 +154,13 @@
 
     function updateRoller(id) {
         const { value, min } = config[id];
-        const offset = (value - min) * 80;
-        document.getElementById(id).style.transform = `translateY(-${offset}px)`;
+        const roller = document.getElementById(id).parentElement;
+        const itemHeight = roller.clientHeight;
+
+        const offset = (value - min) * itemHeight;
+        document.getElementById(id).style.transform =
+            `translateY(${-offset}px)`;
+
         updateResult();
     }
 
@@ -166,13 +181,13 @@
 
         const result = (A * B) / C;
         document.getElementById("result").textContent =
-            `(${A} × ${B}) ÷ ${C} = ${result.toFixed(4)}`;
+            `(${A} × ${B}) ÷ ${C} = ${result.toFixed(2)}`;
     }
 
     function addTouchSupport(id) {
         const numbersEl = document.getElementById(id);
         const roller = numbersEl.parentElement;
-        const itemHeight = 80;
+        const itemHeight = roller.clientHeight;
 
         let startY = 0;
         let startOffset = 0;
