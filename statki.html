@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalkulator (A*B)/C</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #1e293b, #0f172a);
+        font-family: Arial, sans-serif;
+        color: white;
+    }
+
+    .container {
+        background: rgba(255,255,255,0.05);
+        padding: 40px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        text-align: center;
+    }
+
+    .rollers {
+        display: flex;
+        gap: 40px;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .roller-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button {
+        background: none;
+        border: none;
+        color: #38bdf8;
+        font-size: 24px;
+        cursor: pointer;
+        margin: 10px 0;
+        transition: transform 0.1s;
+    }
+
+    .button:active {
+        transform: scale(0.9);
+    }
+
+    .roller {
+        width: 80px;
+        height: 80px;
+        overflow: hidden;
+        border-radius: 15px;
+        background: #0f172a;
+        border: 2px solid #38bdf8;
+        position: relative;
+        touch-action: none;
+    }
+
+    .numbers {
+        position: absolute;
+        width: 100%;
+    }
+    .number {
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 32px;
+        font-weight: bold;
+    }
+
+    .operator {
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .result {
+        margin-top: 20px;
+        font-size: 26px;
+        font-weight: bold;
+        color: #22d3ee;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="rollers">
+        <div class="roller-wrapper">
+            <button class="button" onclick="changeValue('A', -1)">▲</button>
+            <div class="roller"><div class="numbers" id="A"></div></div>
+            <button class="button" onclick="changeValue('A', 1)">▼</button>
+        </div>
+
+        <div class="operator">×</div>
+
+        <div class="roller-wrapper">
+            <button class="button" onclick="changeValue('B', -1)">▲</button>
+            <div class="roller"><div class="numbers" id="B"></div></div>
+            <button class="button" onclick="changeValue('B', 1)">▼</button>
+        </div>
+
+        <div class="operator">÷</div>
+
+        <div class="roller-wrapper">
+            <button class="button" onclick="changeValue('C', -1)">▲</button>
+            <div class="roller"><div class="numbers" id="C"></div></div>
+            <button class="button" onclick="changeValue('C', 1)">▼</button>
+        </div>
+    </div>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    const config = {
+        A: { min: 1, max: 3, value: 1 },
+        B: { min: 1, max: 3, value: 1 },
+        C: { min: 1, max: 20, value: 1 }
+    };
+
+    function initRoller(id) {
+        const container = document.getElementById(id);
+        const { min, max } = config[id];
+
+        for (let i = min; i <= max; i++) {
+            const div = document.createElement("div");
+            div.className = "number";
+            div.textContent = i;
+            container.appendChild(div);
+        }
+
+        updateRoller(id);
+    }
+
+    function updateRoller(id) {
+        const { value, min } = config[id];
+        const offset = (value - min) * 80;
+        document.getElementById(id).style.transform = `translateY(-${offset}px)`;
+        updateResult();
+    }
+
+    function changeValue(id, delta) {
+        const obj = config[id];
+        obj.value += delta;
+
+        if (obj.value > obj.max) obj.value = obj.min;
+        if (obj.value < obj.min) obj.value = obj.max;
+
+        updateRoller(id);
+    }
+
+    function updateResult() {
+        const A = config.A.value;
+        const B = config.B.value;
+        const C = config.C.value;
+
+        const result = (A * B) / C;
+        document.getElementById("result").textContent =
+            `(${A} × ${B}) ÷ ${C} = ${result.toFixed(4)}`;
+    }
+
+    function addTouchSupport(id) {
+        const numbersEl = document.getElementById(id);
+        const roller = numbersEl.parentElement;
+        const itemHeight = 80;
+
+        let startY = 0;
+        let startOffset = 0;
+        let currentOffset = 0;
+        let isDragging = false;
+
+        roller.addEventListener("touchstart", (e) => {
+            isDragging = true;
+            numbersEl.style.transition = "none";
+
+            startY = e.touches[0].clientY;
+            startOffset = -((config[id].value - config[id].min) * itemHeight);
+            currentOffset = startOffset;
+        }, { passive: true });
+
+        roller.addEventListener("touchmove", (e) => {
+            if (!isDragging) return;
+
+            const deltaY = e.touches[0].clientY - startY;
+            currentOffset = startOffset + deltaY;
+
+            numbersEl.style.transform = `translateY(${currentOffset}px)`;
+        }, { passive: true });
+
+        roller.addEventListener("touchend", () => {
+            if (!isDragging) return;
+            isDragging = false;
+
+            const movedItems = -Math.round(currentOffset / itemHeight);
+            const range = config[id].max - config[id].min + 1;
+
+            let newValue = config[id].min + movedItems;
+
+            // zapętlanie
+            while (newValue > config[id].max) newValue -= range;
+            while (newValue < config[id].min) newValue += range;
+
+            config[id].value = newValue;
+
+            numbersEl.style.transition = "transform 0.2s ease-out";
+            updateRoller(id);
+        });
+    }
+    initRoller("A");
+    initRoller("B");
+    initRoller("C");
+    addTouchSupport("A");
+    addTouchSupport("B");
+    addTouchSupport("C");
+    updateResult();
+</script>
+
+</body>
+</html>
